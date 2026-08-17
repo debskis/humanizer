@@ -1,13 +1,9 @@
 ---
 name: humanizer
-version: 2.5.1
-description: |
-  Remove signs of AI-generated writing from text. Use when editing or reviewing
-  text to make it sound more natural and human-written. Based on Wikipedia's
-  comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
-  inflated symbolism, promotional language, superficial -ing analyses, vague
-  attributions, em dash overuse, rule of three, AI vocabulary words, passive
-  voice, negative parallelisms, and filler phrases.
+version: 2.6.0
+disableModelInvocation: true
+description: >-
+  Strip AI writing patterns and tighten text. Use on 'make it human', 'sounds too AI', 'too wordy', 'cut the fluff'.
 license: MIT
 compatibility: claude-code opencode
 allowed-tools:
@@ -18,6 +14,17 @@ allowed-tools:
   - Glob
   - AskUserQuestion
 ---
+
+## Role
+
+AI-writing detox editor. Two modes:
+
+- **Humanize** (default) — strips AI-generated patterns until it reads like a human wrote it
+- **Tighten** — cuts redundancy, shortens sentences, improves scannability without changing voice
+
+Trigger words for Tighten mode: "tighten this", "make it clearer", "too wordy", "cut the fluff", "make it scannable", "shorten this", "improve readability"
+
+When in Tighten mode, apply the **Tighten Operations** section below instead of the full AI-pattern removal process. Both modes can be combined: "humanize and tighten" runs both.
 
 # Humanizer: Remove AI Writing Patterns
 
@@ -552,8 +559,76 @@ Provide:
 - Made the voice more personal and less "assembled" (varied rhythm, fewer placeholders)
 
 
+## Tighten Operations (applied in order, Tighten mode only)
+
+### T1. Cut redundancy
+- Remove sentences that repeat what's already said
+- Remove filler phrases: "it is important to note that", "in order to", "as a matter of fact"
+- Remove hedge stacking: keep one qualifier, delete extras ("perhaps maybe possibly" → "perhaps")
+
+### T2. Shorten sentences
+- Split sentences with 3+ clauses into 2 shorter ones
+- Target: average sentence length ≤ 20 words
+- Preserve complex sentences only when the complexity carries meaning
+
+### T3. Improve scannability
+- Add headings where a section break is implied but missing
+- Convert long paragraphs (>4 sentences) to bullet lists when items are parallel
+- Bold key terms on first use within a section
+- Add whitespace between logical sections
+
+### T4. Tighten word choice
+- "in the event that" → "if"
+- "at this point in time" → "now"
+- "due to the fact that" → "because"
+- "a large number of" → "many"
+- "in order to" → "to"
+- "on a daily basis" → "daily"
+- Remove adverbs that don't add meaning: "very", "really", "basically", "essentially", "actually"
+
+### T5. Preserve what matters
+- Do NOT remove technical terms, domain jargon, or specifics
+- Do NOT change the author's voice or personality
+- Do NOT rephrase quotes or attributed statements
+- Do NOT remove caveats that carry real meaning
+
+### Tighten output format
+Return the edited text directly. After the text, add:
+```
+✂️ [X]% shorter ([original word count] → [new word count]). Key cuts: [1-2 word description].
+```
+If the text is already tight (< 10% reduction possible): "Already concise. No meaningful cuts without losing content."
+
+---
+
 ## Reference
 
 This skill is based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. The patterns documented there come from observations of thousands of instances of AI-generated text on Wikipedia.
 
 Key insight from Wikipedia: "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
+
+---
+
+## Learning capture
+
+Before proposing a new entry for `## Learned`:
+
+1. **Dedupe check** — scan existing `## Learned` entries below. If a similar pattern already exists, update that line instead of adding a duplicate.
+2. **Conflict check** — if the new learning contradicts an existing entry, mark the old entry as `[DEPRECATED]` and add the replacement with a note: `(supersedes: <old entry date>)`.
+3. **Format** — each entry must follow: `- YYYY-MM-DD | <skill-name> | <concise lesson — one sentence>`
+4. **Quality gate** — only propose patterns worth repeating across sessions. Skip trivial one-offs and task-specific details. Generalize from specifics.
+5. **Append only after user confirms** — propose the entry visibly, wait for "yes".
+
+## Learned
+<!-- Governed entries: dated, deduplicated, conflict-resolved. Added live (user approval) or by nightly harvester. -->
+- 2026-06-23 | harvester | No relevant learnings from the session.
+- 2026-06-17 | harvester | No direct use in these sessions.
+- 2026-06-17 | harvester | No specific humanizing edits made.
+- 2026-06-17 | harvester | Shortening responses and using natural, clear language helps improve executive readability without losing key information.
+- 2026-06-17 | harvester | No relevant learning extracted from sessions.
+- 2026-06-17 | harvester | Selective removal of AI writing patterns (e.g., rule-of-three scaffolding, inline bold lists) improves naturalness without losing essential structural clarity in internal newsletters.
+- 2026-06-17 | harvester | Humanizer should adjust domain-specific jargon and hype phrases to more neutral, professional tones while preserving author intent, especially in communication directed at broad audiences.
+- 2026-06-17 | harvester | N/A
+- 2026-06-17 | harvester | Removing hedging, puffed phrases, and formulaic corporate language significantly improves newsletter readability and natural tone.
+- 2026-06-17 | harvester | Applying humanizer after express helps produce authentic, non-AI sounding text suitable for impact reviews and newsletters.
+- 2026-06-17 | harvester | When revising newsletters, use the humanizer skill to remove AI-like phrasing and improve natural tone, helping content sound authentic and reader-friendly.
