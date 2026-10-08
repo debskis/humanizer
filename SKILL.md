@@ -611,24 +611,7 @@ Key insight from Wikipedia: "LLMs use statistical algorithms to guess what shoul
 
 ## Learning capture
 
-Before proposing a new entry for `## Learned`:
-
-1. **Dedupe check** — scan existing `## Learned` entries below. If a similar pattern already exists, update that line instead of adding a duplicate.
-2. **Conflict check** — if the new learning contradicts an existing entry, mark the old entry as `[DEPRECATED]` and add the replacement with a note: `(supersedes: <old entry date>)`.
-3. **Format** — each entry must follow: `- YYYY-MM-DD | <skill-name> | <concise lesson — one sentence>`
-4. **Quality gate** — only propose patterns worth repeating across sessions. Skip trivial one-offs and task-specific details. Generalize from specifics.
-5. **Append only after user confirms** — propose the entry visibly, wait for "yes".
+Follow `.claude/skills/_shared/learning-capture.md`.
 
 ## Learned
 <!-- Governed entries: dated, deduplicated, conflict-resolved. Added live (user approval) or by nightly harvester. -->
-- 2026-06-23 | harvester | No relevant learnings from the session.
-- 2026-06-17 | harvester | No direct use in these sessions.
-- 2026-06-17 | harvester | No specific humanizing edits made.
-- 2026-06-17 | harvester | Shortening responses and using natural, clear language helps improve executive readability without losing key information.
-- 2026-06-17 | harvester | No relevant learning extracted from sessions.
-- 2026-06-17 | harvester | Selective removal of AI writing patterns (e.g., rule-of-three scaffolding, inline bold lists) improves naturalness without losing essential structural clarity in internal newsletters.
-- 2026-06-17 | harvester | Humanizer should adjust domain-specific jargon and hype phrases to more neutral, professional tones while preserving author intent, especially in communication directed at broad audiences.
-- 2026-06-17 | harvester | N/A
-- 2026-06-17 | harvester | Removing hedging, puffed phrases, and formulaic corporate language significantly improves newsletter readability and natural tone.
-- 2026-06-17 | harvester | Applying humanizer after express helps produce authentic, non-AI sounding text suitable for impact reviews and newsletters.
-- 2026-06-17 | harvester | When revising newsletters, use the humanizer skill to remove AI-like phrasing and improve natural tone, helping content sound authentic and reader-friendly.
